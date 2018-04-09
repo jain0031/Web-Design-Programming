@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Week 8 Lab - JavaScript DOM and Arrays</title>
+        <meta charset="utf-8">
+		
+        <script>
+function validateForm(){
+    
+	var array=[document.forms["orderForm"]["firstName"].value,document.forms["orderForm"]["lastName"].value,document.forms["orderForm"]["address"].value, document.forms["orderForm"]["city"].value,document.forms["orderForm"]["province"].value,document.forms["orderForm"]["postalCode"].value];
+	var yx=5;
+	
+	
+	for (var i=0;i<array.length;i++){
+	if(array[i]==""){
+	//alert("please fill the field number : "+ (i+1));
+	switch(i){
+	
+	case 0: alert("please fill the first name"); break;
+	case 1: alert("please fill the last name");break;
+	case 2: alert("please fill the address");break;
+	case 3: alert("please fill the city");break;
+	case 4: alert("please fill the select the province");break;
+	case 5: alert("please fill the Postal code");break;
+	
+	}
+	
+	return false;
+	}
+	if(parseInt(document.forms["orderForm"]["postalCode"].value) <6 ||parseInt(document.forms["orderForm"]["postalCode"].value)>6){
+	alert("Please enter the correct postal code");
+	return false;
+	}
+	 }
+	
+	var array1=[parseInt(document.forms["orderForm"]["widget1qty"].value),parseInt(document.forms["orderForm"]["widget2qty"].value),parseInt(document.forms["orderForm"]["widget3qty"].value)];
+	
+	for (var j=0;j<array1.length;j++){
+	if(array1[0]== 0 && array1[1]== 0 && array1[2]== 0 ){
+	alert("please select at least one quantity ");
+	return false;
+	}
+	else if((array1[0]+array1[1]+array1[2])<= 0){
+	alert("please select one quantity greater than 0");
+     return false;
+
+     	 }
+
+	 }	
+
+	 if(orderForm.shippingTypeStandard.checked==true){
+
+	
+      yx =5;
+        }
+
+		else if(orderForm.shippingTypeExpress.checked==true){
+        yx=10;
+       
+        }
+       
+	   else if(orderForm.shippingTypeOvernight.checked==true){
+        yx=20;
+        }
+		alert("The total for shipping is : "+yx+"\n"+"The total of order is "+((array1[0]*5)+(array1[1]*15)+(array1[2]*20))+"\n"+"The total is : "+((array1[0]*5)+(array1[1]*15)+(array1[2]*20)+yx));
+		
+		
+		
+		return true;
+		
+	}
+		</script>
+<style>
+
+#wrapper{
+	background:  #66ff66;
+	margin-top:20px;
+	padding-top:10px;
+	border: 1px solid black;
+	width:600px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+	
+fieldset{
+	background-color:#99ff99;
+	}
+fieldset legend{
+	color:#412C84;
+	background-color:#66ff99;
+	border: 1px solid #200772;
+	padding: 2px;
+	font-weight:bold;
+	}
+	table{
+	margin: 5px;
+	padding: 5px;
+}
+table td{
+	padding: 3px;
+}
+.center{
+text-color:#003300;
+	text-align:center;
+}
+</style>
+    </head>
+
+    <body>
+<div id="wrapper">	   
+	   <h2>Order Form</h2>
+        <form name="orderForm" method="get" onsubmit="return validateForm();" action ="processForm.html" >
+<fieldset>   
+
+	<legend>Personal Information</legend>
+			<table>
+				<tr>					
+                <td>First Name:</td>
+                <td><input type="text" name="firstName" id="firstName" size="30" ></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" name="lastName" id="lastName" size="30" ></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><input type="text" name="address" id="address" size="30" ></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" name="city" id="city" size="30" ></td>
+            </tr>
+            <tr>
+                <td>Province:</td>
+                <td><select name="province" id="province" size="1" >
+                        <option disabled>Select a province</option>
+                        <option value="BC">British Columbia</option>
+                        <option value="AB">Alberta</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="ON">Ontario</option>
+                        <option value="QC">Québec</option>
+                        <option value="NB">New Brunswick</option>
+                        <option value="NS">Nova Scotia</option>
+                        <option value="PE">Prince Edward Island</option>
+                        <option value="NF">Newfoundland</option>
+                        <option value="YK">Yukon</option>
+                        <option value="NWT">Northwest Territories</option>
+                        <option value="NU">Nunavut</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Postal Code:</td>
+                <td><input type="text" name="postalCode" id="postalCode" maxlength="6" pattern=".{6,}"  ></td>
+            </tr>
+			</table>
+				</fieldset>
+          
+           <fieldset>
+                <legend>Order Information</legend>
+				
+                      <h4>Select your products:</h4>
+					<p>  
+                   Widget #1&nbsp;
+                    <input type="text" name="widget1qty" id="widget1qty" size="1" value="0" >Qty @ <strong>$5.00/ea</strong></p>
+                 <p>Widget #2&nbsp;
+                    <input type="text" name="widget2qty" id="widget2qty" size="1" value="0" >Qty @ <strong>$15.00/ea</strong></p>
+                    <p>   Widget #3&nbsp;
+                    <input type="text" name="widget3qty" id="widget3qty" size="1" value="0" >Qty @ <strong>$25.00/ea</strong></p>
+        
+			</fieldset>
+			<fieldset>		
+			       <legend>Shipping Type:</legend>
+	
+    <p>   Standard ($5.00)<input type="radio" name="shippingType" id="shippingTypeStandard" value="Standard" checked></p>
+        <p>Express ($10.00)<input type="radio" name="shippingType" id="shippingTypeExpress" value="Express">      </p>
+		   <p>Overnight ($20.00)<input type="radio" name="shippingType" id="shippingTypeOvernight" value="Overnight"></p>
+           
+		   <h4>Submit Order</h4>
+            <input type="submit" name="btnSubmit" id="btnSubmit" value="Submit Order" >
+            <input type="reset" name="btnReset" id="btnReset" value="Reset Form">
+
+			</fieldset>
+			</div>  
+     </form>
+	</body>
+</html>
